@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prova/Screens/ClassRecipes.dart';
+import 'package:prova/Screens/HomePage.dart';
+import 'package:prova/Screens/LoadingPage.dart';
 
-import 'Screens/ClassInfo.dart';
+import 'Screens/ClassProfileUser.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const Classinfo(),
+      home: const ClassProfileUser(),
     );
   }
 }
