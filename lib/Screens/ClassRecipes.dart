@@ -22,26 +22,40 @@ class _ClassRecipesState extends State<ClassRecipes> {
     Container(
       child: Stack(
         children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset("..."),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Container(
+                width: double.infinity,
+                height: 250,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.green,    //questo colore è solo per dimostrare, poi verrà cambiato
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: const [
+                      Text("Title", style: TextStyle(fontSize: 26)),
+                      Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                          "Proin varius nulla non orci hendrerit ullamcorper. Donec "
+                          "turpis nibh, maximus et neque convallis, accumsan aliquam "
+                          "ex. Nunc eget pellentesque risus. Nam scelerisque nisi sed "
+                          "mauris vestibulum consequat. Donec massa augue, bibendum "
+                          "sit amet ipsum eu, euismod gravida erat.", style: TextStyle(fontSize: 15),),
+                    ],
+                  ),
+                ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(12),
-                child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                    "Proin varius nulla non orci hendrerit ullamcorper. Donec "
-                    "turpis nibh, maximus et neque convallis, accumsan aliquam "
-                    "ex. Nunc eget pellentesque risus. Nam scelerisque nisi sed "
-                    "mauris vestibulum consequat. Donec massa augue, bibendum "
-                    "sit amet ipsum eu, euismod gravida erat.", style: TextStyle(fontSize: 15),),
-              ),
-            ],
+            ),
           ),
-          Align(
-           alignment: Alignment.bottomCenter,
-           child: Text("${1}/${3.toString()}"),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 42),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text("${1}/${3.toString()}", style: const TextStyle(color: Colors.white),),
+            ),
           ),
         ],
       ),
@@ -49,22 +63,35 @@ class _ClassRecipesState extends State<ClassRecipes> {
     Container(
       child: Stack(
         children: [
-          Column(
-            children: const [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                    "Proin varius nulla non orci hendrerit ullamcorper. Donec "
-                    "turpis nibh, maximus et neque convallis, accumsan aliquam "
-                    "ex. Nunc eget pellentesque risus. Nam scelerisque nisi sed "
-                    "mauris vestibulum consequat. Donec massa augue, bibendum "
-                    "sit amet ipsum eu, euismod gravida erat.", style: TextStyle(fontSize: 15)),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Container(
+                width: double.infinity,
+                height: 250,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.green,    //questo colore è solo per dimostrare, poi verrà cambiato
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                      "Proin varius nulla non orci hendrerit ullamcorper. Donec "
+                      "turpis nibh, maximus et neque convallis, accumsan aliquam "
+                      "ex. Nunc eget pellentesque risus. Nam scelerisque nisi sed "
+                      "mauris vestibulum consequat. Donec massa augue, bibendum "
+                      "sit amet ipsum eu, euismod gravida erat.", style: TextStyle(fontSize: 15),),
+                ),
               ),
-            ],
+            ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Text("${2}/${3.toString()}"),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 42),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text("${2}/${3.toString()}", style: const TextStyle(color: Colors.white),),
+            ),
           ),
         ],
       ),
@@ -72,22 +99,35 @@ class _ClassRecipesState extends State<ClassRecipes> {
     Container(
       child: Stack(
         children: [
-          Column(
-            children: const [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                    "Proin varius nulla non orci hendrerit ullamcorper. Donec "
-                    "turpis nibh, maximus et neque convallis, accumsan aliquam "
-                    "ex. Nunc eget pellentesque risus. Nam scelerisque nisi sed "
-                    "mauris vestibulum consequat. Donec massa augue, bibendum "
-                    "sit amet ipsum eu, euismod gravida erat.", style: TextStyle(fontSize: 15)),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Container(
+                width: double.infinity,
+                height: 250,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.green,    //questo colore è solo per dimostrare, poi verrà cambiato
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                      "Proin varius nulla non orci hendrerit ullamcorper. Donec "
+                      "turpis nibh, maximus et neque convallis, accumsan aliquam "
+                      "ex. Nunc eget pellentesque risus. Nam scelerisque nisi sed "
+                      "mauris vestibulum consequat. Donec massa augue, bibendum "
+                      "sit amet ipsum eu, euismod gravida erat.", style: TextStyle(fontSize: 15),),
+                ),
               ),
-            ],
+            ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Text("${3}/${3.toString()}"),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 42),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text("${3}/${3.toString()}", style: const TextStyle(color: Colors.white),),
+            ),
           ),
         ],
       ),
@@ -98,14 +138,14 @@ class _ClassRecipesState extends State<ClassRecipes> {
   void _nextPage() {
     if (_currentPage < listOfScreen.length - 1) {
       pageController.animateToPage(_currentPage + 1,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
 
   void _previousPage() {
     if (_currentPage > 0) {
       pageController.animateToPage(_currentPage - 1,
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+          duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
   }
 
@@ -152,62 +192,52 @@ class _ClassRecipesState extends State<ClassRecipes> {
           });
         },
       ),
-      appBar: AppBar(
-        title: const Text("(nome ricetta)"),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color.fromRGBO(189, 205, 208, 1),
-      ),
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            child: PageView(    //la possibilità di creare uno "intro slider" usando un widget anzichè un pacchetto dedicato
-              controller: pageController,
-              children: listOfScreen,
-            ),
+          Image.asset("images/image_backgound_screen_deatils_repicies.png"),
+          PageView(
+            controller: pageController,
+            children: listOfScreen,
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  child: Container(   //questo è la freccia per andare indietro tra le varie schermate della ricetta
-                    width: 55,
-                    height: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(78, 255, 181, 1),
-                      borderRadius: BorderRadius.circular(50),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    child: Container(
+                      width: 55,
+                      height: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: const Text("<", style: TextStyle(fontSize: 25),),
                     ),
-                    child: const Text(
-                      "<",
-                      style: TextStyle(fontSize: 22),
-                    ),
+                    onTap: (){
+                      _previousPage();
+                    },
                   ),
-                  onTap: () {
-                    _previousPage();
-                  },
-                ),
-                InkWell(
-                  child: Container(     //questo è la freccia per andare avanti tra le varie schermate della ricetta
-                    width: 55,
-                    height: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(78, 255, 181, 1),
-                      borderRadius: BorderRadius.circular(50),
+                  InkWell(
+                    child: Container(
+                      width: 55,
+                      height: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: const Text(">", style: TextStyle(fontSize: 25),),
                     ),
-                    child: const Text(
-                      ">",
-                      style: TextStyle(fontSize: 22),
-                    ),
+                    onTap: (){
+                      _nextPage();
+                    },
                   ),
-                  onTap: () {
-                    _nextPage();
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

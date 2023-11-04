@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prova/Screens/ClassRecipes.dart';
+import 'package:prova/Screens/ClassSearchScreen.dart';
 import 'package:prova/Screens/HomePage.dart';
 import 'package:prova/Screens/LoadingPage.dart';
 

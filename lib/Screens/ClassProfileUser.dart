@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'HomePage.dart';
 
@@ -19,16 +20,48 @@ class ClassProfileUser extends StatefulWidget {
 
 class _ClassProfileUserState extends State<ClassProfileUser> {
 
-  //Color? backgroundColorScreenTheme;
-  TextEditingController newPasswordController= TextEditingController();
-  TextEditingController newEmailController= TextEditingController();
-  TextEditingController messageBio= TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController newEmailController = TextEditingController();
+  TextEditingController messageBio = TextEditingController();
 
+  Color? backgroundScaffold;
+  Color? backgroundAppBar;
   XFile? image;
   final ImagePicker picker = ImagePicker();
-  String newPassoword="";
-  String newEmail="";
-  String bioUser="";
+  String newPassoword = "";
+  String newEmail = "";
+  String bioUser = "";
+  String selectedColorKeyScaffold = 'backgroundScaffold';
+  String selectedColorKeyAppBar = 'backgroundAppBar';
+
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSelectedColors();
+  }
+
+  Future<void> _loadSelectedColors() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? scaffoldColorValue = prefs.getInt(selectedColorKeyScaffold);
+    final int? appBarColorValue = prefs.getInt(selectedColorKeyAppBar);
+    if (scaffoldColorValue != null) {
+      setState(() {
+        backgroundScaffold = Color(scaffoldColorValue);
+      });
+    }
+    if (appBarColorValue != null) {
+      setState(() {
+        backgroundAppBar = Color(appBarColorValue);
+      });
+    }
+  }
+
+  Future<void> _saveSelectedColors(Color selectedScaffoldColor, Color selectedAppBarColor) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(selectedColorKeyScaffold, selectedScaffoldColor.value);
+    await prefs.setInt(selectedColorKeyAppBar, selectedAppBarColor.value);
+  }
 
   //funzione per prendere l'immagine tramite il telefono
   Future getImage(ImageSource media) async {
@@ -46,7 +79,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: const Text('Please choose media to select'),
             content: Container(
               height: MediaQuery.of(context).size.height / 6,
@@ -92,235 +125,720 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromRGBO(255, 220, 132, 62),
-              Color.fromRGBO(129, 255, 240, 17)],
-          ),
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          bottomNavigationBar: ConvexAppBar(    //la barra di navigazione posizionata in basso alla schermata
-            style: TabStyle.fixedCircle,
-            items: const [
-              TabItem(icon: Icons.home, title: 'Home'),
-              //TabItem(icon: Icons.map, title: 'Discovery'),
-              TabItem(icon: Icons.add, title: 'Add'), //schermata per aggiungere una nuova ricetta da parte dell'utente
-              //TabItem(icon: Icons.message, title: 'Message'),
-              TabItem(icon: Icons.person, title: 'Profile'),
-            ],
-            onTap: (int screen) {
-              setState(() {
-                if (screen == 0) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const HomePage()));
-                }
-                if (screen == 2) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ClassProfileUser()));
-                }
-              });
-            },
-          ),
-          appBar: AppBar(
-            title: const Text("Profile"),
-            centerTitle: true,
-            automaticallyImplyLeading: false,
-            backgroundColor: const Color.fromRGBO(189, 205, 208, 1),
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 50),
-              child: Column(
+    return Scaffold(
+      backgroundColor: backgroundScaffold ?? const Color.fromRGBO(19, 17, 17, 1), //const Color.fromRGBO(19, 17, 17, 1)
+      bottomNavigationBar: ConvexAppBar(
+        //la barra di navigazione posizionata in basso alla schermata
+        style: TabStyle.fixedCircle,
+        backgroundColor: const Color.fromRGBO(42, 41, 41, 1),
+        items: const [
+          TabItem(icon: Icons.home, title: 'Home'),
+          //TabItem(icon: Icons.map, title: 'Discovery'),
+          TabItem(icon: Icons.add, title: 'Add'),
+          //schermata per aggiungere una nuova ricetta da parte dell'utente
+          //TabItem(icon: Icons.message, title: 'Message'),
+          TabItem(icon: Icons.person, title: 'Profile'),
+        ],
+        onTap: (int screen) {
+          setState(() {
+            if (screen == 0) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            }
+            if (screen == 2) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ClassProfileUser()));
+            }
+          });
+        },
+      ),
+      appBar: AppBar(
+        title: const Text("Profile"),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        backgroundColor: backgroundAppBar ?? const Color.fromRGBO(42, 41, 41, 1),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 35),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const [
+                  Text("Username", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  Text("(userName)", style: TextStyle(fontSize: 20, color: Colors.white)), //qui verrà messo l'username dell'utente
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                //il pulsante per caricare l'immagine come immagine del profilo
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const SizedBox(height: 20,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Text("Username", style: TextStyle(fontSize: 20)),
-                      Text("(userName)"),   //qui verrà messo l'username dell'utente
-                    ],
-                  ),
-                  const SizedBox(height: 20,),
-                  Row(    //il pulsante per caricare l'immagine come immagine del profilo
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          myAlert();
-                        },
-                        child: const Text('Upload Photo'),
-                      ),
-                      Container(    //se l'immagine non è stata messa, verrà mostrato un un contenitore con al centro una scritta
-                        width: 100,
-                        height: 70,
-                        alignment: Alignment.center,
-                        child: image != null
-                            ? Container(
-                          height: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 1),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.file(
-                            File(image!.path),
-                            fit: BoxFit.fitWidth,
-                          ),
-                        )
-                            : DottedBorder(
-                          strokeWidth: 1,
-                          child: const Center(
-                            child: Text("Upload Image"),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  /*Padding(    //questo era per dare la possibilità di cambiare il thema dell'intera app
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Text("Theme"),
-                        InkWell(
-                          child: const Icon(Icons.color_lens, size: 50,),
-                          onTap: (){
-                            _showMyDialog();
-                          },
-                        ),
-                      ],
-                    ),
-                  ),*/
-                  const SizedBox(height: 15),
-                  const Text("Settings", style: TextStyle(fontSize: 20)),
-                  Row(    //in questa parte verrà messo la versione dell'app a mano a mano che verranno fatti dei aggiornamenti
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Text("Version", style: TextStyle(fontSize: 20)),
-                      Text("1.0.0", style: TextStyle(fontSize: 20)),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(    //la possibilità di modificare l'indirizzo email (deve essere connesso al database per gestire la momorizzazione dell'email)
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Text("Change Email", style: TextStyle(fontSize: 20)),
-                      ElevatedButton(
-                        onPressed: (){
-                          alertDialogChangeEmail();
-                        },
-                        child: const Text("Click Me"),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(      //la possibilità di modificare la password (deve essere connesso al database per gestire la momorizzazione della password)
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Text("Change Password", style: TextStyle(fontSize: 20)),
-                      ElevatedButton(
-                        onPressed: (){
-                          alertDialogChangePassword();
-                        },
-                        child: const Text("Click Me"),
-                      ),
-                    ],
-                  ),
-                  //queste due righe di codice sono per esempio, poi verranno tolte in fase di rilascio dell'app
-                  Text("email: " + newEmail),
-                  Text("password: " + newPassoword),
-
-                  const Align(    //questo è la bio dell'utente
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Text("Bio", style: TextStyle(fontSize: 20)),
-                    ),
-                  ),
-                  Padding(      //qui è dove effettivamente andrà a inserire il testo della bio (inserire un meccanismo per persistere la bio dell'utente)
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: TextField(
-                          controller: messageBio,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 30,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Write the bio",
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12,),
                   ElevatedButton(
-                    onPressed: (){
-                      //una volta premuto il pulsante, ti porta a una schermata per le ricette create dall'utente stesso
-                    },
-                    child: const Text("My Recepies"),
-                  ),
-                  const SizedBox(height: 20,),
-                  const Text("I Like Recepies", style: TextStyle(fontSize: 20)),
-                  const SizedBox(height: 12,),
-                  Padding(    //qui è un contenitore dove verranno mostrate le varie ricette piaciute all'utente
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 200,
-                      color: Colors.yellow,   //questo colore verrà tolto, l'ho messo tanto per vedere il contenitore padre/genitore in sè per sè
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            //qui verranno messi le varie ricette preferite
-                          ],
-                        ),
-                      ),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.orangeAccent,
                     ),
+                    onPressed: () {
+                      myAlert();
+                    },
+                    child: const Text('Upload Photo'),
+                  ),
+                  Container(
+                    //se l'immagine non è stata messa, verrà mostrato un un contenitore con al centro una scritta
+                    width: 100,
+                    height: 70,
+                    alignment: Alignment.center,
+                    child: image != null
+                        ? Container(
+                            height: 200,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.file(
+                              File(image!.path),
+                              fit: BoxFit.fitWidth,
+                            ),
+                          )
+                        : DottedBorder(
+                            strokeWidth: 1,
+                            color: Colors.white,
+                            child: const Center(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 15),
+                                child: Text("Upload Image", style: TextStyle(fontSize: 20, color: Colors.white)),
+                              ),
+                            ),
+                          ),
                   ),
                 ],
               ),
-            ),
+              Padding(
+                //questo era per dare la possibilità di cambiare il thema dell'intera app
+                padding: const EdgeInsets.only(top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Text("Theme", style: TextStyle(fontSize: 20, color: Colors.white)),
+                    InkWell(
+                      child: const Icon(
+                        Icons.color_lens,
+                        size: 50,
+                        color: Colors.orangeAccent,
+                      ),
+                      onTap: () {
+                        _showMyDialog();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 15),
+              const Text("Settings", style: TextStyle(fontSize: 20, color: Colors.white)),
+              Row(
+                //in questa parte verrà messo la versione dell'app a mano a mano che verranno fatti dei aggiornamenti
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const [
+                  Text("Version", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  Text("1.0.0", style: TextStyle(fontSize: 20, color: Colors.white)),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                //la possibilità di modificare l'indirizzo email (deve essere connesso al database per gestire la momorizzazione dell'email)
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text("Change Email", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.orangeAccent,
+                    ),
+                    onPressed: () {
+                      alertDialogChangeEmail();
+                    },
+                    child: const Text("Click Me"),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                //la possibilità di modificare la password (deve essere connesso al database per gestire la momorizzazione della password)
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text("Change Password", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.orangeAccent,
+                    ),
+                    onPressed: () {
+                      alertDialogChangePassword();
+                    },
+                    child: const Text("Click Me"),
+                  ),
+                ],
+              ),
+              //queste due righe di codice sono per esempio, poi verranno tolte in fase di rilascio dell'app
+              Text("email: " + newEmail),
+              Text("password: " + newPassoword),
+
+              const Align(
+                //questo è la bio dell'utente
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text("Bio", style: TextStyle(fontSize: 20, color: Colors.white)),
+                ),
+              ),
+              Padding(
+                //qui è dove effettivamente andrà a inserire il testo della bio (inserire un meccanismo per persistere la bio dell'utente)
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: TextField(
+                      controller: messageBio,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 30,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Write the bio",
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.orangeAccent,
+                ),
+                onPressed: () {
+                  //una volta premuto il pulsante, ti porta a una schermata per le ricette create dall'utente stesso
+                },
+                child: const Text("My Recepies", style: TextStyle(fontSize: 20, color: Colors.white)),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text("I Like Recepies", style: TextStyle(fontSize: 20, color: Colors.white)),
+              const SizedBox(
+                height: 12,
+              ),
+              Padding(
+                //qui è un contenitore dove verranno mostrate le varie ricette piaciute all'utente
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 200,
+                  color: Colors.yellow,
+                  //questo colore verrà tolto, l'ho messo tanto per vedere il contenitore padre/genitore in sè per sè
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        //qui verranno messi le varie ricette preferite
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 
-  /*Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog() async {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Choose the theme for the application'),
-          content: Column(
-            children: [
+          title: const Text('Choose the theme for the AppBar of application', style: TextStyle(fontSize: 16),),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(255, 127, 80, 1),
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= const Color.fromRGBO(255, 127, 80, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Coral"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(127, 255, 212, 1),
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= const Color.fromRGBO(127, 255, 212, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Aquamarine"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: Colors.yellow,
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= Colors.yellow;
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Yellow"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(19, 17, 17, 1),
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= const Color.fromRGBO(19, 17, 17, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Default"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: Colors.grey,
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= newColor;
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Grey"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(184, 115, 51, 1),
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= const Color.fromRGBO(184, 115, 51, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Copper"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(0, 139, 139, 1),
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= const Color.fromRGBO(0, 139, 139, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Dark cyan"),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(233, 214, 107, 1),
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= const Color.fromRGBO(233, 214, 107, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Arylide\yellow"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(161, 202, 241, 1),
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= const Color.fromRGBO(161, 202, 241, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Baby blue eyes"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(102, 153, 204, 1),
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= const Color.fromRGBO(102, 153, 204, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Blue Gray"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(145, 92, 131, 1),
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= const Color.fromRGBO(145, 92, 131, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Antique\nfuchsia"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: Colors.brown,
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= Colors.brown;
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
 
-            ],
+                                });
+                              },
+                            ),
+                            const Text("Brown"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: Colors.cyan,
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= Colors.cyan;
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Cyano"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: Colors.red,
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= newColor;
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Red"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const Text('Choose the theme for the Scaffold of application'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(135, 50, 96, 1),
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= const Color.fromRGBO(135, 50, 96, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Boysenberry"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(133, 187, 101, 1),
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= const Color.fromRGBO(133, 187, 101, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Dollar bill"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(244, 187, 255, 1),
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= const Color.fromRGBO(244, 187, 255, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Brillant lavender"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(178, 255, 255, 1),
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= const Color.fromRGBO(178, 255, 255, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Celeste"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: Colors.yellow,
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= Colors.yellow;
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Yellow"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(42, 41, 41, 1),
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= const Color.fromRGBO(42, 41, 41, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Default"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: Colors.grey,
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= newColor;
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Grey"),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(80, 200, 120, 1),
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= const Color.fromRGBO(80, 200, 120, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Emerald"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(255, 215, 0, 1),
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= const Color.fromRGBO(255, 215, 0, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Gold"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(255, 167, 0, 1),
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= const Color.fromRGBO(255, 167, 0, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Chocolate"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: const Color.fromRGBO(250, 214, 165, 1),
+                              groupValue: backgroundAppBar,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundAppBar= const Color.fromRGBO(250, 214, 165, 1);
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Deep\nchampagne"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: Colors.brown,
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= Colors.brown;
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Brown"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: Colors.cyan,
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= Colors.cyan;
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Cyano"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: Colors.red,
+                              groupValue: backgroundScaffold,
+                              onChanged: (Color? newColor){
+                                setState(() {
+                                  backgroundScaffold= newColor;
+                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                });
+                              },
+                            ),
+                            const Text("Red"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },
     );
-  }*/
+  }
 
-  Future<void> alertDialogChangeEmail(){
+  Future<void> alertDialogChangeEmail() {
     return showDialog(
         context: context,
-        builder: (BuildContext contex){
+        builder: (BuildContext contex) {
           return FractionallySizedBox(
             heightFactor: 0.45,
             child: AlertDialog(
@@ -347,9 +865,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
-                        newEmail= newEmailController.text;
+                        newEmail = newEmailController.text;
                         newEmailController.clear();
                         Navigator.of(context).pop(true);
                       });
@@ -366,14 +884,13 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
               ),
             ),
           );
-        }
-    );
+        });
   }
 
-  Future<void> alertDialogChangePassword(){
+  Future<void> alertDialogChangePassword() {
     return showDialog(
         context: context,
-        builder: (BuildContext contex){
+        builder: (BuildContext contex) {
           return FractionallySizedBox(
             heightFactor: 0.45,
             child: AlertDialog(
@@ -401,9 +918,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
-                        newPassoword= newPasswordController.text;
+                        newPassoword = newPasswordController.text;
                         newPasswordController.clear();
                         Navigator.of(context).pop(true);
                       });
@@ -420,7 +937,6 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
               ),
             ),
           );
-        }
-    );
+        });
   }
 }
