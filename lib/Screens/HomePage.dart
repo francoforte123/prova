@@ -15,17 +15,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  ClassProfileUser classProfileUser= ClassProfileUser();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => onBackButtonPressed(context),
       child: Scaffold(
-        backgroundColor: Colors.white, //questo è il colore di base dell'app (const Color.fromRGBO(19, 17, 17, 1),)
+        backgroundColor: classProfileUser.backgroundScaffold ?? const Color.fromRGBO(19, 17, 17, 1), //questo è il colore di base dell'app (const Color.fromRGBO(19, 17, 17, 1),)
         appBar: AppBar(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
-          ),
           title: const Text("Random Eat", style: TextStyle(fontSize: 23, color: Colors.white),),
           backgroundColor: const Color.fromRGBO(42, 41, 41, 1),
           automaticallyImplyLeading: false,
@@ -54,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
               }
               if(screen == 2){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ClassProfileUser()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ClassProfileUser()));
               }
             });
           },
@@ -161,7 +159,7 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.bottomCenter,
               child: Container(      //questo codice fa riferimento al contenitore in cui verrà visualizzato l'immagine, il titolo e una breve descrizione della ricetta
                 width: double.infinity,
-                height: 280,
+                height: 350,
                 decoration: const BoxDecoration(
                   color: Color.fromRGBO(248, 184, 78, 1),
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),

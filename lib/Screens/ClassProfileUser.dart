@@ -12,7 +12,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'HomePage.dart';
 
 class ClassProfileUser extends StatefulWidget {
-  const ClassProfileUser({Key? key}) : super(key: key);
+  ClassProfileUser({Key? key}) : super(key: key);
+
+  Color? backgroundScaffold;
+  Color? backgroundAppBar;
+  XFile? image;
+  final ImagePicker picker = ImagePicker();
+  String newPassoword = "";
+  String newEmail = "";
+  String bioUser = "";
+  String selectedColorKeyScaffold = 'backgroundScaffold';
+  String selectedColorKeyAppBar = 'backgroundAppBar';
 
   @override
   State<ClassProfileUser> createState() => _ClassProfileUserState();
@@ -41,6 +51,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
     _loadSelectedColors();
   }
 
+  //questa funzione di carica i dati selezionati (in questo caso i colori)
   Future<void> _loadSelectedColors() async {
     final prefs = await SharedPreferences.getInstance();
     final int? scaffoldColorValue = prefs.getInt(selectedColorKeyScaffold);
@@ -57,6 +68,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
     }
   }
 
+  //questa funziona ti permette di salvare i dati selezionati (in questo caso i colori)
   Future<void> _saveSelectedColors(Color selectedScaffoldColor, Color selectedAppBarColor) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(selectedColorKeyScaffold, selectedScaffoldColor.value);
@@ -78,8 +90,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: const Text('Please choose media to select'),
             content: Container(
               height: MediaQuery.of(context).size.height / 6,
@@ -149,7 +160,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ClassProfileUser()));
+                      builder: (context) => ClassProfileUser()));
             }
           });
         },
@@ -366,14 +377,14 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
     );
   }
 
-  Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog() async {    //questa funzione ti mostra una serie di radio button con la possibilità di scegliere i colori
     return showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Choose the theme for the AppBar of application', style: TextStyle(fontSize: 16),),
           content: SingleChildScrollView(
-            child: Column(
+            child: Column(    //prima colonna per i colori dell'AppBar
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -488,7 +499,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                         ),
                       ],
                     ),
-                    Column(
+                    Column(   //seconda colonna per i colori dell'AppBar
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
@@ -605,7 +616,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Column(
+                    Column(   //prima colonna per i colori dello Scaffold
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
@@ -715,7 +726,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                         ),
                       ],
                     ),
-                    Column(
+                    Column(     //seconda colonna per i colori dello Scaffold
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
@@ -835,7 +846,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
     );
   }
 
-  Future<void> alertDialogChangeEmail() {
+  Future<void> alertDialogChangeEmail() {   //questa funziona ti permette di cambiare l'email (ovviamente l'email và memorizzata nel db)
     return showDialog(
         context: context,
         builder: (BuildContext contex) {
@@ -865,13 +876,13 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () {     //una volta premuto il pulsante, viene cambiata l'email, il campo di testo viene pulito e verrà chiusa l'alert dialog
                       setState(() {
                         newEmail = newEmailController.text;
                         newEmailController.clear();
                         Navigator.of(context).pop(true);
                       });
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(     //verrà mostrato un messaggio per il salvataggio della nuova email
                         const SnackBar(
                           content: Text("The email is changed"),
                         ),
@@ -887,7 +898,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
         });
   }
 
-  Future<void> alertDialogChangePassword() {
+  Future<void> alertDialogChangePassword() {      //questa funziona ti permette di cambiare l'email (ovviamente l'email và memorizzata nel db)
     return showDialog(
         context: context,
         builder: (BuildContext contex) {
@@ -918,13 +929,13 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () {       //una volta premuto il pulsante, viene cambiata la password, il campo di testo viene pulito e verrà chiusa l'alert dialog
                       setState(() {
                         newPassoword = newPasswordController.text;
                         newPasswordController.clear();
                         Navigator.of(context).pop(true);
                       });
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(   //verrà mostrato un messaggio per il salvataggio della nuova password
                         const SnackBar(
                           content: Text("The password is changed"),
                         ),

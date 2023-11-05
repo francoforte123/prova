@@ -187,7 +187,7 @@ class _ClassRecipesState extends State<ClassRecipes> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ClassProfileUser()));
+                      builder: (context) => ClassProfileUser()));
             }
           });
         },
