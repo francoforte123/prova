@@ -43,6 +43,10 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
   String bioUser = "";
   String selectedColorKeyScaffold = 'backgroundScaffold';
   String selectedColorKeyAppBar = 'backgroundAppBar';
+  String selectedColorTextKeyAppBar = 'backgroundTextAppBar';
+  String selectedColorTextKeyScaffold = 'backgroundTextScaffold';
+  Color? colorBackgroundBlackTextScaffold;
+  Color? colorBackgroundBlackTextAppBar;
 
 
   @override
@@ -56,14 +60,18 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
     final prefs = await SharedPreferences.getInstance();
     final int? scaffoldColorValue = prefs.getInt(selectedColorKeyScaffold);
     final int? appBarColorValue = prefs.getInt(selectedColorKeyAppBar);
+    final int? appBarTextColorValue = prefs.getInt(selectedColorTextKeyAppBar);
+    final int? scaffoldTextColorValue = prefs.getInt(selectedColorTextKeyScaffold);
     if (scaffoldColorValue != null) {
       setState(() {
         backgroundScaffold = Color(scaffoldColorValue);
+        //colorBackgroundBlackTextScaffold = Color(scaffoldTextColorValue!);
       });
     }
     if (appBarColorValue != null) {
       setState(() {
         backgroundAppBar = Color(appBarColorValue);
+        //colorBackgroundBlackTextAppBar = Color(appBarTextColorValue!);
       });
     }
   }
@@ -74,6 +82,14 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
     await prefs.setInt(selectedColorKeyScaffold, selectedScaffoldColor.value);
     await prefs.setInt(selectedColorKeyAppBar, selectedAppBarColor.value);
   }
+
+  /*Future<void> _saveSelectedColors(Color selectedScaffoldColor, Color selectedAppBarColor, Color selectedScaffoldColorText, Color selectedAppBarColorText) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(selectedColorKeyScaffold, selectedScaffoldColor.value);
+    await prefs.setInt(selectedColorKeyAppBar, selectedAppBarColor.value);
+    await prefs.setInt(colorBackgroundBlackTextScaffold.toString(), selectedScaffoldColorText.value);
+    await prefs.setInt(colorBackgroundBlackTextAppBar.toString(), selectedAppBarColorText.value);
+  }*/
 
   //funzione per prendere l'immagine tramite il telefono
   Future getImage(ImageSource media) async {
@@ -166,7 +182,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
         },
       ),
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: Text("Profile", style: TextStyle(color: colorBackgroundBlackTextAppBar ?? Colors.white),),
         centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: backgroundAppBar ?? const Color.fromRGBO(42, 41, 41, 1),
@@ -181,9 +197,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
-                  Text("Username", style: TextStyle(fontSize: 20, color: Colors.white)),
-                  Text("(userName)", style: TextStyle(fontSize: 20, color: Colors.white)), //qui verrà messo l'username dell'utente
+                children: [
+                  Text("Username", style: TextStyle(fontSize: 20, color: colorBackgroundBlackTextScaffold ?? Colors.white)),
+                  Text("(userName)", style: TextStyle(fontSize: 20, color: colorBackgroundBlackTextScaffold ?? Colors.white)), //qui verrà messo l'username dell'utente
                 ],
               ),
               const SizedBox(
@@ -222,11 +238,11 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                           )
                         : DottedBorder(
                             strokeWidth: 1,
-                            color: Colors.white,
-                            child: const Center(
+                            color: colorBackgroundBlackTextScaffold ?? Colors.white,
+                            child: Center(
                               child: Padding(
-                                padding: EdgeInsets.only(left: 15),
-                                child: Text("Upload Image", style: TextStyle(fontSize: 20, color: Colors.white)),
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Text("Upload Image", style: TextStyle(fontSize: 20, color: colorBackgroundBlackTextScaffold ?? Colors.white)),
                               ),
                             ),
                           ),
@@ -239,7 +255,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Text("Theme", style: TextStyle(fontSize: 20, color: Colors.white)),
+                    Text("Theme", style: TextStyle(fontSize: 20, color: colorBackgroundBlackTextScaffold ?? Colors.white)),
                     InkWell(
                       child: const Icon(
                         Icons.color_lens,
@@ -254,13 +270,13 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                 ),
               ),
               const SizedBox(height: 15),
-              const Text("Settings", style: TextStyle(fontSize: 20, color: Colors.white)),
+              Text("Settings", style: TextStyle(fontSize: 20, color: colorBackgroundBlackTextScaffold ?? Colors.white)),
               Row(
                 //in questa parte verrà messo la versione dell'app a mano a mano che verranno fatti dei aggiornamenti
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
-                  Text("Version", style: TextStyle(fontSize: 20, color: Colors.white)),
-                  Text("1.0.0", style: TextStyle(fontSize: 20, color: Colors.white)),
+                children: [
+                  Text("Version", style: TextStyle(fontSize: 20, color:colorBackgroundBlackTextScaffold ?? Colors.white)),
+                  Text("1.0.0", style: TextStyle(fontSize: 20, color: colorBackgroundBlackTextScaffold ?? Colors.white)),
                 ],
               ),
               const SizedBox(height: 20),
@@ -268,7 +284,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                 //la possibilità di modificare l'indirizzo email (deve essere connesso al database per gestire la momorizzazione dell'email)
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Text("Change Email", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  Text("Change Email", style: TextStyle(fontSize: 20, color:colorBackgroundBlackTextScaffold ?? Colors.white)),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.orangeAccent,
@@ -285,7 +301,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                 //la possibilità di modificare la password (deve essere connesso al database per gestire la momorizzazione della password)
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Text("Change Password", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  Text("Change Password", style: TextStyle(fontSize: 20, color: colorBackgroundBlackTextScaffold ?? Colors.white)),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.orangeAccent,
@@ -301,12 +317,12 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
               Text("email: " + newEmail),
               Text("password: " + newPassoword),
 
-              const Align(
+              Align(
                 //questo è la bio dell'utente
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text("Bio", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text("Bio", style: TextStyle(fontSize: 20, color: colorBackgroundBlackTextScaffold ?? Colors.white)),
                 ),
               ),
               Padding(
@@ -343,12 +359,12 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                 onPressed: () {
                   //una volta premuto il pulsante, ti porta a una schermata per le ricette create dall'utente stesso
                 },
-                child: const Text("My Recepies", style: TextStyle(fontSize: 20, color: Colors.white)),
+                child: Text("My Recepies", style: TextStyle(fontSize: 20, color: colorBackgroundBlackTextScaffold ?? Colors.white)),
               ),
               const SizedBox(
                 height: 20,
               ),
-              const Text("I Like Recepies", style: TextStyle(fontSize: 20, color: Colors.white)),
+              Text("I Like Recepies", style: TextStyle(fontSize: 20, color: colorBackgroundBlackTextScaffold ?? Colors.white)),
               const SizedBox(
                 height: 12,
               ),
@@ -402,7 +418,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= const Color.fromRGBO(255, 127, 80, 1);
+                                   // _saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.white;
                                   });
                                 },
                               ),
@@ -417,7 +435,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= const Color.fromRGBO(127, 255, 212, 1);
+                                   // _saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.black;
                                   });
                                 },
                               ),
@@ -432,7 +452,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= Colors.yellow;
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.black;
                                   });
                                 },
                               ),
@@ -447,7 +469,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= const Color.fromRGBO(19, 17, 17, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.white;
                                   });
                                 },
                               ),
@@ -462,7 +486,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= newColor;
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.black;  //non so se lasciare il bianco, io ho messo il nero
                                   });
                                 },
                               ),
@@ -477,7 +503,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= const Color.fromRGBO(184, 115, 51, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.white;
                                   });
                                 },
                               ),
@@ -492,7 +520,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= const Color.fromRGBO(0, 139, 139, 1);
+                                   // _saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.white;
                                   });
                                 },
                               ),
@@ -512,7 +542,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= const Color.fromRGBO(233, 214, 107, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.black;
                                   });
                                 },
                               ),
@@ -527,7 +559,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= const Color.fromRGBO(161, 202, 241, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.white;
                                   });
                                 },
                               ),
@@ -542,7 +576,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= const Color.fromRGBO(102, 153, 204, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.white;
                                   });
                                 },
                               ),
@@ -557,7 +593,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= const Color.fromRGBO(145, 92, 131, 1);
+                                   // _saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.white;
                                   });
                                 },
                               ),
@@ -572,8 +610,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= Colors.brown;
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-
+                                    colorBackgroundBlackTextAppBar= Colors.white;
                                   });
                                 },
                               ),
@@ -588,7 +627,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= Colors.cyan;
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.white;
                                   });
                                 },
                               ),
@@ -603,7 +644,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundAppBar= newColor;
+                                   // _saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextAppBar= Colors.white;
                                   });
                                 },
                               ),
@@ -632,7 +675,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= const Color.fromRGBO(135, 50, 96, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.white;
                                   });
                                 },
                               ),
@@ -647,7 +692,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= const Color.fromRGBO(133, 187, 101, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;
                                   });
                                 },
                               ),
@@ -662,7 +709,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= const Color.fromRGBO(244, 187, 255, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;
                                   });
                                 },
                               ),
@@ -677,7 +726,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= const Color.fromRGBO(178, 255, 255, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;
                                   });
                                 },
                               ),
@@ -692,7 +743,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= Colors.yellow;
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;
                                   });
                                 },
                               ),
@@ -707,7 +760,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= const Color.fromRGBO(42, 41, 41, 1);
+                                   // _saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.white;
                                   });
                                 },
                               ),
@@ -722,7 +777,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= newColor;
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;   //non so se lasciare il bianco, io ho messo il nero
                                   });
                                 },
                               ),
@@ -742,7 +799,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= const Color.fromRGBO(80, 200, 120, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;   //non so se lasciare il bianco, io ho messo il nero
                                   });
                                 },
                               ),
@@ -757,7 +816,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= const Color.fromRGBO(255, 215, 0, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;
                                   });
                                 },
                               ),
@@ -772,7 +833,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= const Color.fromRGBO(255, 167, 0, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;
                                   });
                                 },
                               ),
@@ -783,11 +846,13 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                             children: [
                               Radio(
                                 value: const Color.fromRGBO(250, 214, 165, 1),
-                                groupValue: backgroundAppBar,
+                                groupValue: backgroundScaffold,
                                 onChanged: (Color? newColor){
                                   setState(() {
-                                    backgroundAppBar= const Color.fromRGBO(250, 214, 165, 1);
+                                    backgroundScaffold= const Color.fromRGBO(250, 214, 165, 1);
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;
                                   });
                                 },
                               ),
@@ -802,7 +867,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= Colors.brown;
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.white;
                                   });
                                 },
                               ),
@@ -817,7 +884,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= Colors.cyan;
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;   //non so se laciare il bianco, io ho messo il nero
                                   });
                                 },
                               ),
@@ -832,7 +901,9 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                                 onChanged: (Color? newColor){
                                   setState(() {
                                     backgroundScaffold= newColor;
+                                    //_saveSelectedColors(backgroundScaffold!, backgroundAppBar!, colorBackgroundBlackTextScaffold!, colorBackgroundBlackTextAppBar!);
                                     _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                    colorBackgroundBlackTextScaffold= Colors.black;   //non so se laciare il bianco, io ho messo il nero
                                   });
                                 },
                               ),
