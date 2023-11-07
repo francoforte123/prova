@@ -264,19 +264,24 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                 ],
               ),
               const SizedBox(height: 20),
-              Row(
-                //la possibilità di modificare l'indirizzo email (deve essere connesso al database per gestire la momorizzazione dell'email)
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Change Email", style: TextStyle(fontSize: 20, color: Colors.white)),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.orangeAccent,
-                    ),
-                    onPressed: () {
-                      alertDialogChangeEmail();
-                    },
-                    child: const Text("Click Me"),
+                  Row(
+                    //la possibilità di modificare l'indirizzo email (deve essere connesso al database per gestire la momorizzazione dell'email)
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Text("Change Email", style: TextStyle(fontSize: 20, color: Colors.white)),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.orangeAccent,
+                        ),
+                        onPressed: () {
+                          alertDialogChangeEmail();
+                        },
+                        child: const Text("Click Me"),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -386,457 +391,463 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
           content: SingleChildScrollView(
             child: Column(    //prima colonna per i colori dell'AppBar
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(255, 127, 80, 1),
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= const Color.fromRGBO(255, 127, 80, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Coral"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(127, 255, 212, 1),
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= const Color.fromRGBO(127, 255, 212, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Aquamarine"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: Colors.yellow,
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= Colors.yellow;
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Yellow"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(19, 17, 17, 1),
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= const Color.fromRGBO(19, 17, 17, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Default"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: Colors.grey,
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= newColor;
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Grey"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(184, 115, 51, 1),
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= const Color.fromRGBO(184, 115, 51, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Copper"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(0, 139, 139, 1),
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= const Color.fromRGBO(0, 139, 139, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Dark cyan"),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Column(   //seconda colonna per i colori dell'AppBar
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(233, 214, 107, 1),
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= const Color.fromRGBO(233, 214, 107, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Arylide\yellow"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(161, 202, 241, 1),
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= const Color.fromRGBO(161, 202, 241, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Baby blue eyes"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(102, 153, 204, 1),
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= const Color.fromRGBO(102, 153, 204, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Blue Gray"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(145, 92, 131, 1),
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= const Color.fromRGBO(145, 92, 131, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Antique\nfuchsia"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: Colors.brown,
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= Colors.brown;
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(255, 127, 80, 1),
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= const Color.fromRGBO(255, 127, 80, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Coral"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(127, 255, 212, 1),
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= const Color.fromRGBO(127, 255, 212, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Aquamarine"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: Colors.yellow,
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= Colors.yellow;
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Yellow"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(19, 17, 17, 1),
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= const Color.fromRGBO(19, 17, 17, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Default"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: Colors.grey,
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= newColor;
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Grey"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(184, 115, 51, 1),
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= const Color.fromRGBO(184, 115, 51, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Copper"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(0, 139, 139, 1),
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= const Color.fromRGBO(0, 139, 139, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Dark cyan"),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(   //seconda colonna per i colori dell'AppBar
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(233, 214, 107, 1),
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= const Color.fromRGBO(233, 214, 107, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Arylide\yellow"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(161, 202, 241, 1),
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= const Color.fromRGBO(161, 202, 241, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Baby blue eyes"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(102, 153, 204, 1),
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= const Color.fromRGBO(102, 153, 204, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Blue Gray"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(145, 92, 131, 1),
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= const Color.fromRGBO(145, 92, 131, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Antique\nfuchsia"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: Colors.brown,
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= Colors.brown;
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
 
-                                });
-                              },
-                            ),
-                            const Text("Brown"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: Colors.cyan,
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= Colors.cyan;
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Cyano"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: Colors.red,
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= newColor;
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Red"),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                                  });
+                                },
+                              ),
+                              const Text("Brown"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: Colors.cyan,
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= Colors.cyan;
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Cyano"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: Colors.red,
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= newColor;
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Red"),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 const Text('Choose the theme for the Scaffold of application'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(   //prima colonna per i colori dello Scaffold
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(135, 50, 96, 1),
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= const Color.fromRGBO(135, 50, 96, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Boysenberry"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(133, 187, 101, 1),
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= const Color.fromRGBO(133, 187, 101, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Dollar bill"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(244, 187, 255, 1),
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= const Color.fromRGBO(244, 187, 255, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Brillant lavender"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(178, 255, 255, 1),
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= const Color.fromRGBO(178, 255, 255, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Celeste"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: Colors.yellow,
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= Colors.yellow;
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Yellow"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(42, 41, 41, 1),
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= const Color.fromRGBO(42, 41, 41, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Default"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: Colors.grey,
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= newColor;
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Grey"),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Column(     //seconda colonna per i colori dello Scaffold
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(80, 200, 120, 1),
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= const Color.fromRGBO(80, 200, 120, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Emerald"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(255, 215, 0, 1),
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= const Color.fromRGBO(255, 215, 0, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Gold"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(255, 167, 0, 1),
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= const Color.fromRGBO(255, 167, 0, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Chocolate"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: const Color.fromRGBO(250, 214, 165, 1),
-                              groupValue: backgroundAppBar,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundAppBar= const Color.fromRGBO(250, 214, 165, 1);
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Deep\nchampagne"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: Colors.brown,
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= Colors.brown;
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Brown"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: Colors.cyan,
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= Colors.cyan;
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Cyano"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: Colors.red,
-                              groupValue: backgroundScaffold,
-                              onChanged: (Color? newColor){
-                                setState(() {
-                                  backgroundScaffold= newColor;
-                                  _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
-                                });
-                              },
-                            ),
-                            const Text("Red"),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(   //prima colonna per i colori dello Scaffold
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(135, 50, 96, 1),
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= const Color.fromRGBO(135, 50, 96, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Boysenberry"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(133, 187, 101, 1),
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= const Color.fromRGBO(133, 187, 101, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Dollar bill"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(244, 187, 255, 1),
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= const Color.fromRGBO(244, 187, 255, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Brillant lavender"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(178, 255, 255, 1),
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= const Color.fromRGBO(178, 255, 255, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Celeste"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: Colors.yellow,
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= Colors.yellow;
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Yellow"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(42, 41, 41, 1),
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= const Color.fromRGBO(42, 41, 41, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Default"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: Colors.grey,
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= newColor;
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Grey"),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(     //seconda colonna per i colori dello Scaffold
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(80, 200, 120, 1),
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= const Color.fromRGBO(80, 200, 120, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Emerald"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(255, 215, 0, 1),
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= const Color.fromRGBO(255, 215, 0, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Gold"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(255, 167, 0, 1),
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= const Color.fromRGBO(255, 167, 0, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Chocolate"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: const Color.fromRGBO(250, 214, 165, 1),
+                                groupValue: backgroundAppBar,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundAppBar= const Color.fromRGBO(250, 214, 165, 1);
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Deep\nchampagne"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: Colors.brown,
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= Colors.brown;
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Brown"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: Colors.cyan,
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= Colors.cyan;
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Cyano"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: Colors.red,
+                                groupValue: backgroundScaffold,
+                                onChanged: (Color? newColor){
+                                  setState(() {
+                                    backgroundScaffold= newColor;
+                                    _saveSelectedColors(backgroundScaffold!, backgroundAppBar!);
+                                  });
+                                },
+                              ),
+                              const Text("Red"),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                     const Text("description...", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
                     Padding(
-                      padding: const EdgeInsets.only(top: 85, left: 10, right: 10),
+                      padding: const EdgeInsets.only(top: 115, left: 10, right: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
