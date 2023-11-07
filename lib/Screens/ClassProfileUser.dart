@@ -264,24 +264,19 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                 ],
               ),
               const SizedBox(height: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                //la possibilità di modificare l'indirizzo email (deve essere connesso al database per gestire la momorizzazione dell'email)
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Row(
-                    //la possibilità di modificare l'indirizzo email (deve essere connesso al database per gestire la momorizzazione dell'email)
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Text("Change Email", style: TextStyle(fontSize: 20, color: Colors.white)),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.orangeAccent,
-                        ),
-                        onPressed: () {
-                          alertDialogChangeEmail();
-                        },
-                        child: const Text("Click Me"),
-                      ),
-                    ],
+                  const Text("Change Email", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.orangeAccent,
+                    ),
+                    onPressed: () {
+                      alertDialogChangeEmail();
+                    },
+                    child: const Text("Click Me"),
                   ),
                 ],
               ),

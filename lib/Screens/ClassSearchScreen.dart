@@ -26,8 +26,7 @@ class _ClassSearchScreenState extends State<ClassSearchScreen> {
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.circular(50),
+            border: Border.all(width: 1),
           ),
           child: Autocomplete<String>(optionsBuilder:
               (TextEditingValue textEditingValue) {
@@ -55,17 +54,17 @@ class _ClassSearchScreenState extends State<ClassSearchScreen> {
               ),
             );
           },
-              onSelected: (String selection) {
-                if (selection.toLowerCase() == "carbonara") {
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => const ClassSimpleCircularProgressBar()));
-                }
-                if (selection.toLowerCase() == "matriciana") {
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => const ClassSimpleCircularProgressBar()));
-                }
-                if (selection.toLowerCase() == "tiramisù") {
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => const ClassSimpleCircularProgressBar()));
-                }
+            onSelected: (String selection) {
+              if (selection.toLowerCase() == "carbonara") {
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => const ClassSimpleCircularProgressBar()));
               }
+              if (selection.toLowerCase() == "matriciana") {
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => const ClassSimpleCircularProgressBar()));
+              }
+              if (selection.toLowerCase() == "tiramisù") {
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => const ClassSimpleCircularProgressBar()));
+              }
+            }
           ),
         ),
       ),

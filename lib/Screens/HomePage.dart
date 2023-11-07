@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.only(top: 6),
                   child: Text("Pianificazione per oggi", style: TextStyle(fontSize: 23, color: Colors.white),),
                 ),
               ],
@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.bottomCenter,
               child: Container(      //questo codice fa riferimento al contenitore in cui verrà visualizzato l'immagine, il titolo e una breve descrizione della ricetta
                 width: double.infinity,
-                height: 350,
+                height: 370,
                 decoration: const BoxDecoration(
                   color: Color.fromRGBO(248, 184, 78, 1),
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
