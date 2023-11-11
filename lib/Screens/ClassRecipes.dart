@@ -170,6 +170,7 @@ class _ClassRecipesState extends State<ClassRecipes> {
     return Scaffold(
       bottomNavigationBar: ConvexAppBar(    //la barra di navigazione posizionata in basso alla schermata
         style: TabStyle.fixedCircle,
+        backgroundColor: const Color.fromRGBO(42, 41, 41, 1),
         items: const [
           TabItem(icon: Icons.home, title: 'Home'),
           //TabItem(icon: Icons.map, title: 'Discovery'),

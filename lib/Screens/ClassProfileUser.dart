@@ -15,14 +15,6 @@ class ClassProfileUser extends StatefulWidget {
   ClassProfileUser({Key? key}) : super(key: key);
 
   Color? backgroundScaffold;
-  Color? backgroundAppBar;
-  XFile? image;
-  final ImagePicker picker = ImagePicker();
-  String newPassoword = "";
-  String newEmail = "";
-  String bioUser = "";
-  String selectedColorKeyScaffold = 'backgroundScaffold';
-  String selectedColorKeyAppBar = 'backgroundAppBar';
 
   @override
   State<ClassProfileUser> createState() => _ClassProfileUserState();
@@ -53,6 +45,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
   void initState() {
     super.initState();
     _loadSelectedColors();
+    _loadImage();
   }
 
   //questa funzione di carica i dati selezionati (in questo caso i colori)
@@ -91,13 +84,33 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
     await prefs.setInt(colorBackgroundBlackTextAppBar.toString(), selectedAppBarColorText.value);
   }*/
 
+  //funzione per caricare l'immagine tramite percorso
+  Future<void> _loadImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? imagePath = prefs.getString('userImage');
+    if (imagePath != null) {
+      setState(() {
+        image = XFile(imagePath);
+      });
+    }
+  }
+
+  //funzione per salvare l'immagine nel contenitore apposito
+  Future<void> _saveImage(String imagePath) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userImage', imagePath);
+  }
+
   //funzione per prendere l'immagine tramite il telefono
-  Future getImage(ImageSource media) async {
+  Future<void> getImage(ImageSource media) async {
     var img = await picker.pickImage(source: media);
 
-    setState(() {
-      image = img;
-    });
+    if (img != null) {
+      await _saveImage(img.path);
+      setState(() {
+        image = img;
+      });
+    }
   }
 
   //show popup dialog

@@ -21,6 +21,7 @@ class _ClassSearchScreenState extends State<ClassSearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(42, 41, 41, 1),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -28,7 +29,8 @@ class _ClassSearchScreenState extends State<ClassSearchScreen> {
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                border: Border.all(width: 1),
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
               ),
               child: Autocomplete<String>(optionsBuilder:
                   (TextEditingValue textEditingValue) {
