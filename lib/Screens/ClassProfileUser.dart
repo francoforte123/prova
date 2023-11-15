@@ -26,6 +26,8 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
   TextEditingController newEmailController = TextEditingController();
   TextEditingController messageBio = TextEditingController();
 
+  late SharedPreferences prefs;
+
   Color? backgroundScaffold;
   Color? backgroundAppBar;
   XFile? image;
@@ -46,6 +48,7 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
     super.initState();
     _loadSelectedColors();
     _loadImage();
+    _initPreferences();
   }
 
   //questa funzione di carica i dati selezionati (in questo caso i colori)
@@ -113,6 +116,22 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
     }
   }
 
+  void _initPreferences() async {
+    prefs = await SharedPreferences.getInstance();
+    String? savedText = prefs.getString('saved_text');
+    if (savedText != null) {
+      setState(() {
+        messageBio.text = savedText;
+      });
+    }
+  }
+
+  void _saveText() async {
+    await prefs.setString('saved_text', messageBio.text);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Text saved')),
+    );
+  }
   //show popup dialog
   void myAlert() {
     showDialog(
@@ -361,6 +380,12 @@ class _ClassProfileUserState extends State<ClassProfileUser> {
                     ),
                   ),
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  _saveText();
+                },
+                child: const Text("Save Me"),
               ),
               const SizedBox(
                 height: 12,
